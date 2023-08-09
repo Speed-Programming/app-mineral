@@ -8,6 +8,8 @@ import com.toedter.calendar.JDateChooser;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Calendar;
@@ -95,6 +97,31 @@ public class EpochTime {
     
     }
     
+    public LocalDateTime convertToLocalDateViaMilisecond(Date dateToConvert) {
+    return Instant.ofEpochMilli(dateToConvert.getTime())
+      .atZone(ZoneId.systemDefault())
+      .toLocalDateTime();
+    }
+    
+    public static long getSelectDays(String value, LocalDateTime dateTime){
+        ZoneId zoneIdDefault = ZoneId.systemDefault();
+        ZoneId zoneId = ZoneId.of(String.valueOf(zoneIdDefault));
+        ZonedDateTime now = ZonedDateTime.of(dateTime, zoneId);
+        ZonedDateTime startTime = now.withHour(0).withMinute(0).withSecond(0);
+        ZonedDateTime endTime = now.withHour(23).withMinute(59).withSecond(59);
+        if (now.isAfter(endTime)) { endTime = endTime.plusDays(1);}
+        Instant startInstant = startTime.toInstant();
+        Instant endInstant = endTime.toInstant();
+        long startEpoch = (startInstant.getEpochSecond()*1000);
+        long endEpoch = (endInstant.getEpochSecond()*1000);
+        
+        if ("START".equals(value)) {
+            return startEpoch;
+        } else {
+            return endEpoch;
+        }
+    }
+    
     public static void main(String[] args) throws ParseException {
         System.out.println(getWorkOfDay("END".toUpperCase()));
         System.out.println(getWorkOfDay("START".toUpperCase()));
@@ -104,7 +131,13 @@ public class EpochTime {
         
         System.out.println(currentTime());
         
-        String tanggal = "08/07/2023";
+        String tanggal = "08/08/2023";
         System.out.println(getDateEpoch(tanggal));
+        
+        Date date = new Date();
+        LocalDateTime datetime = new EpochTime().convertToLocalDateViaMilisecond(date);
+        System.out.println(EpochTime.getSelectDays("START", datetime));
+        System.out.println(EpochTime.getSelectDays("END", datetime));
+        
     }
 }

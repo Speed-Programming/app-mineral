@@ -12,11 +12,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import admin.Admin;
-import com.toedter.calendar.JDateChooser;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.text.ParseException;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -34,6 +31,7 @@ import pelanggan.Pelanggan;
 public class methodDB {
     // My Variable Global
     Connection con = null; PreparedStatement pst = null; ResultSet res = null;
+    
     // Method Table
     public void DefaultTabel(JTable newTable, Integer size){
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
@@ -48,11 +46,6 @@ public class methodDB {
     
     // Method Class Admin
     public void Login(JTextField user, JPasswordField pass) throws ParseException{
-        if (user.getText().equals("")) {
-            user.requestFocus();
-        } else if (String.valueOf(pass.getPassword()).equals("")) {
-            pass.requestFocus();
-        }else {
             try {
                 String SQLQuery = "SELECT COUNT(*), `type` FROM `user` WHERE `username`=? AND `password`=?;";
                 con = (Connection) Connect.configDB();
@@ -64,6 +57,7 @@ public class methodDB {
                 while (res.next()) {                    
                     if(res.getInt(1)==0){
                         JOptionPane.showMessageDialog(null, "Data kosong.");
+                        new Login().setVisible(true);
                     }else if(res.getString(2).equals("admin")){
                         new Admin().setVisible(true);
                     }else {
@@ -72,6 +66,7 @@ public class methodDB {
                 }
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
+                new Login().setVisible(true);
             } finally {
                 // Close the result set
                 if (res != null) {try {res.close();} catch (SQLException e) {}}
@@ -80,7 +75,6 @@ public class methodDB {
                 // Close the connection
                 if (con != null) {try {con.close();} catch (SQLException e) {}}
             }
-        }
     }
     
     public void Daftar(JTextField user, JPasswordField pass, JTextField phone){
@@ -288,6 +282,148 @@ public class methodDB {
             pst.setString(1, value);
             pst.executeUpdate();
             JOptionPane.showMessageDialog(null, "Hapus data berhasil.");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        } finally {
+            // Close the result set
+            if (res != null) {try {res.close();} catch (SQLException e) {}}
+            // Close the prepared statement
+            if (pst != null) {try {pst.close();} catch (SQLException e) {}}
+            // Close the connection
+            if (con != null) {try {con.close();} catch (SQLException e) {}}
+        }
+    }
+    
+    // Method Class Data Pemesanan
+    public void getDataPemesanan(JTable nameTable, Long start, Long end){
+        
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("ID PESAN");
+        model.addColumn("USERNAME");
+        model.addColumn("TANGGAL");
+        model.addColumn("ALAMAT");
+        model.addColumn("JUMLAH");
+        model.addColumn("HARGA");
+        model.addColumn("TIPE PEMBAYARAN");
+        model.addColumn("STATUS PEMBAYARAN");
+        
+        try {
+            String SQLQuery = "SELECT id, username, date, alamat, quantity, harga, type_buy, status_buy FROM `order` WHERE `date` BETWEEN ? AND ?;";
+            
+            con = (Connection) Connect.configDB();
+            pst = con.prepareStatement(SQLQuery);
+            pst.setLong(1, start);
+            pst.setLong(2, end);
+            res = pst.executeQuery();
+            
+            while (res.next()) {                
+                model.addRow(new Object[]{
+                    res.getString(1).toUpperCase(),
+                    res.getString(2).toUpperCase(),
+                    res.getString(3).toUpperCase(),
+                    res.getString(4).toUpperCase(),
+                    res.getString(5).toUpperCase(),
+                    res.getString(6).toUpperCase(),
+                    res.getString(7).toUpperCase(),
+                    res.getString(8).toUpperCase(),
+                });
+            }
+            nameTable.setModel(model);
+            DefaultTabel(nameTable, 8);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        } finally {
+            // Close the result set
+            if (res != null) {try {res.close();} catch (SQLException e) {}}
+            // Close the prepared statement
+            if (pst != null) {try {pst.close();} catch (SQLException e) {}}
+            // Close the connection
+            if (con != null) {try {con.close();} catch (SQLException e) {}}
+        }
+    }
+    
+    public void getDataPemesananId(JTable nameTable, String username, Long start, Long end){
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("ID PESAN");
+        model.addColumn("USERNAME");
+        model.addColumn("TANGGAL");
+        model.addColumn("ALAMAT");
+        model.addColumn("JUMLAH");
+        model.addColumn("HARGA");
+        model.addColumn("TIPE PEMBAYARAN");
+        model.addColumn("STATUS PEMBAYARAN");
+        
+        try {
+            String SQLQuery = "SELECT id, username, date, alamat, quantity, harga, type_buy, status_buy FROM `order` WHERE (`username`=?) AND (`date` BETWEEN ? AND ?);";
+            con = (Connection) Connect.configDB();
+            pst = con.prepareStatement(SQLQuery);
+            pst.setString(1, username);
+            pst.setLong(2, start);
+            pst.setLong(3, end);
+            res = pst.executeQuery();
+            
+            while (res.next()) {                
+                model.addRow(new Object[]{
+                    res.getString(1).toUpperCase(),
+                    res.getString(2).toUpperCase(),
+                    res.getString(3).toUpperCase(),
+                    res.getString(4).toUpperCase(),
+                    res.getString(5).toUpperCase(),
+                    res.getString(6).toUpperCase(),
+                    res.getString(7).toUpperCase(),
+                    res.getString(8).toUpperCase(),
+                });
+            }
+            nameTable.setModel(model);
+            DefaultTabel(nameTable, 8);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        } finally {
+            // Close the result set
+            if (res != null) {try {res.close();} catch (SQLException e) {}}
+            // Close the prepared statement
+            if (pst != null) {try {pst.close();} catch (SQLException e) {}}
+            // Close the connection
+            if (con != null) {try {con.close();} catch (SQLException e) {}}
+        }
+    }
+    
+    public void createDataPemesanan(JTable nameTable, String ...value){
+        
+        try {
+            String SQLQuery = "INSERT INTO `order` (`id`, `username`, `alamat`, `quantity`, `harga`, `type_buy`, `status_buy`, `date`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?);";
+            con = (Connection) Connect.configDB();
+            pst = con.prepareStatement(SQLQuery);
+            pst.setString(1, value[0]);
+            pst.setString(2, value[1]);
+            pst.setString(3, value[2]);
+            pst.setString(4, value[3]);
+            pst.setString(5, value[4]);
+            pst.setString(6, value[5]);
+            pst.setString(7, value[6]);
+            pst.execute();
+            JOptionPane.showMessageDialog(null, "Data disimpan.");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        } finally {
+            // Close the result set
+            if (res != null) {try {res.close();} catch (SQLException e) {}}
+            // Close the prepared statement
+            if (pst != null) {try {pst.close();} catch (SQLException e) {}}
+            // Close the connection
+            if (con != null) {try {con.close();} catch (SQLException e) {}}
+        }
+    }
+    
+    public void deleteDataPemesanan(JTable nameTable, Integer key, String username){
+        try {
+            String SQLQuery = "DELETE FROM `order` WHERE id=? AND username=?";
+            con = (Connection) Connect.configDB();
+            pst = con.prepareStatement(SQLQuery);
+            pst.setInt(1, key);
+            pst.setString(2, username);
+            pst.execute();
+            JOptionPane.showMessageDialog(null, "Data dihapus.");
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         } finally {

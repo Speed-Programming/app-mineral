@@ -262,13 +262,19 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_login_registerMouseClicked
 
     private void login_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_login_btnActionPerformed
-        try {
-            // TODO add your handling code here:
-            new methodDB().Login( login_user, login_pass);
-        } catch (ParseException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        if (login_user.getText().equals("")) {
+            login_user.requestFocus();
+        } else if (String.valueOf(login_pass.getPassword()).equals("")) {
+            login_pass.requestFocus();
+        } else {
+            try {
+                // TODO add your handling code here:
+                new methodDB().Login( login_user, login_pass);
+            } catch (ParseException ex) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            dispose();
         }
-        dispose();
     }//GEN-LAST:event_login_btnActionPerformed
 
     /**

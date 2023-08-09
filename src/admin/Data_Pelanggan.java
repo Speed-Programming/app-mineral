@@ -363,9 +363,9 @@ public class Data_Pelanggan extends javax.swing.JFrame {
         jMenuBar1.add(jMenu5);
 
         jMenu6.setText("Keluar");
-        jMenu6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu6ActionPerformed(evt);
+        jMenu6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu6MouseClicked(evt);
             }
         });
         jMenuBar1.add(jMenu6);
@@ -410,13 +410,6 @@ public class Data_Pelanggan extends javax.swing.JFrame {
         new Data_Pemesanan().setVisible(true);
         dispose();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
-
-    private void jMenu6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu6ActionPerformed
-        // TODO add your handling code here:
-        new Login().setVisible(true);
-        dispose();
-
-    }//GEN-LAST:event_jMenu6ActionPerformed
 
     private void user_refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_user_refreshActionPerformed
         // TODO add your handling code here:
@@ -468,6 +461,12 @@ public class Data_Pelanggan extends javax.swing.JFrame {
         // TODO add your handling code here:
         new methodDB().getDataPelangganId(user_table, user_user.getText());
     }//GEN-LAST:event_user_userKeyReleased
+
+    private void jMenu6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu6MouseClicked
+        // TODO add your handling code here:
+        new Login().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jMenu6MouseClicked
 
     /**
      * @param args the command line arguments

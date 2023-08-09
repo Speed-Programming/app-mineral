@@ -26,4 +26,9 @@ public class RealTime {
             
         }.start();
     }
+    
+    public String getTanggal(Long time){
+        String tanggal = new SimpleDateFormat("EEEE, dd MMMM Y KK:mm:ss").format(new java.util.Date (time));
+        return tanggal;
+    }
 }
