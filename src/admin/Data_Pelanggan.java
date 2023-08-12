@@ -4,10 +4,13 @@
  */
 package admin;
 
+import com.formdev.flatlaf.FlatDarkLaf;
 import database.methodDB;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import main.Login;
 
 /**
@@ -145,15 +148,15 @@ public class Data_Pelanggan extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("username");
+        jLabel6.setText("Username");
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("password");
+        jLabel7.setText("Password");
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("no handphone");
+        jLabel8.setText("No Handphone");
 
         user_user.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -182,7 +185,7 @@ public class Data_Pelanggan extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("saldo");
+        jLabel9.setText("Saldo");
 
         user_edit.setBackground(new java.awt.Color(0, 51, 0));
         user_edit.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -196,7 +199,7 @@ public class Data_Pelanggan extends javax.swing.JFrame {
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("type");
+        jLabel10.setText("Type");
 
         user_type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PILIH", "PELANGGAN", "ADMIN" }));
 
@@ -453,7 +456,7 @@ public class Data_Pelanggan extends javax.swing.JFrame {
 
     private void user_hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_user_hapusActionPerformed
         // TODO add your handling code here:
-        new methodDB().deleteDataPelanggan(user_table, user_user.getText());
+        new methodDB().deleteDataPelanggan(user_user.getText());
         user_refresh.doClick();
     }//GEN-LAST:event_user_hapusActionPerformed
 
@@ -472,35 +475,12 @@ public class Data_Pelanggan extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+        
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Data_Pelanggan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Data_Pelanggan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Data_Pelanggan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Data_Pelanggan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            UIManager.setLookAndFeel( new FlatDarkLaf() );
+        } catch( UnsupportedLookAndFeelException ex ) {
+            System.err.println( "Failed to initialize LaF" );
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {

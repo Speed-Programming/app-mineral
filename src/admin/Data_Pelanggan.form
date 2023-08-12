@@ -362,7 +362,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="username"/>
+                <Property name="text" type="java.lang.String" value="Username"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel7">
@@ -373,7 +373,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="password"/>
+                <Property name="text" type="java.lang.String" value="Password"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel8">
@@ -384,7 +384,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="no handphone"/>
+                <Property name="text" type="java.lang.String" value="No Handphone"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="user_user">
@@ -433,7 +433,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="saldo"/>
+                <Property name="text" type="java.lang.String" value="Saldo"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="user_edit">
@@ -461,7 +461,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="type"/>
+                <Property name="text" type="java.lang.String" value="Type"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JComboBox" name="user_type">

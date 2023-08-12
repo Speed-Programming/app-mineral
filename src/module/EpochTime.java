@@ -131,7 +131,7 @@ public class EpochTime {
         
         System.out.println(currentTime());
         
-        String tanggal = "08/08/2023";
+        String tanggal = "08/12/2023";
         System.out.println(getDateEpoch(tanggal));
         
         Date date = new Date();

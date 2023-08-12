@@ -4,6 +4,7 @@
  */
 package admin;
 
+import com.formdev.flatlaf.FlatDarkLaf;
 import database.methodDB;
 import java.text.ParseException;
 import java.time.LocalDateTime;
@@ -11,6 +12,8 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTable;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import main.Login;
 import module.EpochTime;
 import module.RealTime;
@@ -159,23 +162,23 @@ public class Data_Pemesanan extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("id pesan");
+        jLabel5.setText("ID Pesan");
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("username");
+        jLabel6.setText("Username");
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("tanggal");
+        jLabel7.setText("Tanggal");
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("alamat");
+        jLabel8.setText("Alamat");
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("jumlah");
+        jLabel10.setText("Jumlah");
 
         pesan_pesan.setBackground(new java.awt.Color(0, 51, 102));
         pesan_pesan.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -198,15 +201,15 @@ public class Data_Pemesanan extends javax.swing.JFrame {
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setText("harga");
+        jLabel12.setText("Harga");
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setText("tipe pembayaran");
+        jLabel14.setText("Tipe Pembayaran");
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel15.setText("status pembayaran");
+        jLabel15.setText("Status Pembayaran");
 
         pesan_id.setEnabled(false);
 
@@ -592,7 +595,7 @@ public class Data_Pemesanan extends javax.swing.JFrame {
                 String.valueOf(pesan_status.getSelectedItem()).toLowerCase(),
                 String.valueOf(EpochTime.currentTime())
             };
-            new methodDB().createDataPemesanan(pesan_tabel, value);
+            new methodDB().createDataPemesanan(value);
         }
         
         pesan_refresh.doClick();
@@ -609,34 +612,11 @@ public class Data_Pemesanan extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Data_Pemesanan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Data_Pemesanan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Data_Pemesanan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Data_Pemesanan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            UIManager.setLookAndFeel( new FlatDarkLaf() );
+        } catch( UnsupportedLookAndFeelException ex ) {
+            System.err.println( "Failed to initialize LaF" );
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {

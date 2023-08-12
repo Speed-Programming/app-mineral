@@ -4,6 +4,18 @@
  */
 package pelanggan;
 
+import com.formdev.flatlaf.FlatDarkLaf;
+import database.methodDB;
+import java.text.ParseException;
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import main.Login;
+import module.EpochTime;
+
 /**
  *
  * @author User
@@ -15,8 +27,18 @@ public class Pelanggan extends javax.swing.JFrame {
      */
     public Pelanggan() {
         initComponents();
+        profile_date.setDate(new Date());
+        menu_1.setText(myProfile.getUser());
+        menu_reload.doClick();
     }
 
+    public void saveUser(String user){
+        profile_user.setText(user);
+    }
+    
+    public void getUser(){
+        profile_user.getText();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -35,30 +57,31 @@ public class Pelanggan extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jPasswordField1 = new javax.swing.JPasswordField();
-        jTextField3 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jLabel9 = new javax.swing.JLabel();
+        profile_user = new javax.swing.JTextField();
+        profile_pass = new javax.swing.JPasswordField();
+        profile_hp = new javax.swing.JTextField();
+        profile_edit = new javax.swing.JButton();
+        profile_delete = new javax.swing.JButton();
+        profile_saldo = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        profile_tabel = new javax.swing.JTable();
+        profile_date = new com.toedter.calendar.JDateChooser();
+        profile_cari = new javax.swing.JButton();
+        profile_batal = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        menu_1 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        menu_reload = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -136,42 +159,44 @@ public class Pelanggan extends javax.swing.JFrame {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("ID User");
-
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Username");
-
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Password");
+        jLabel7.setText("Username");
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("No Handphone");
+        jLabel8.setText("Nomor HP");
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Saldo");
 
-        jTextField1.setEditable(false);
+        profile_user.setEnabled(false);
 
-        jButton1.setBackground(new java.awt.Color(0, 51, 102));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton1.setText("UBAH");
+        profile_edit.setBackground(new java.awt.Color(0, 51, 102));
+        profile_edit.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        profile_edit.setText("EDIT ACCOUNT");
+        profile_edit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                profile_editActionPerformed(evt);
+            }
+        });
 
-        jButton2.setBackground(new java.awt.Color(204, 0, 0));
-        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton2.setText("BATAL");
+        profile_delete.setBackground(new java.awt.Color(204, 0, 0));
+        profile_delete.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        profile_delete.setText("DELETE ACCOUNT");
+        profile_delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                profile_deleteActionPerformed(evt);
+            }
+        });
 
-        jButton3.setBackground(new java.awt.Color(0, 51, 102));
-        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton3.setText("TOP UP");
+        profile_saldo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        profile_saldo.setText("RP. 0");
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel9.setText("0");
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setText("Password");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -179,76 +204,89 @@ public class Pelanggan extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel10))
-                        .addGap(38, 38, 38)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
-                            .addComponent(jTextField1)
-                            .addComponent(jPasswordField1)
-                            .addComponent(jTextField3)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel4Layout.createSequentialGroup()
-                                        .addGap(38, 38, 38)
-                                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(profile_user, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
+                            .addComponent(profile_pass)
+                            .addComponent(profile_hp)
+                            .addComponent(profile_saldo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addComponent(profile_edit, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 143, Short.MAX_VALUE)
+                        .addComponent(profile_delete, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addGap(73, 73, 73)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
+                    .addComponent(profile_user, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
+                    .addComponent(profile_pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12))
+                .addGap(22, 22, 22)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
+                    .addComponent(profile_hp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
+                    .addComponent(profile_saldo)
+                    .addComponent(jLabel10))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel9))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 131, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(profile_delete)
+                    .addComponent(profile_edit))
                 .addGap(15, 15, 15))
         );
 
         jPanel5.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        profile_tabel.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID Topup", "ID User", "Nominal", "Jenis Pembayaran", "Status Pembayaran", "Catatan"
+                "ID TOPUP", "STATUS", "NOMINAL", "VIA PEMBELIAN", "NO HANDPHONE", "SALDO", "DATE", "PASSWORD", "CATATAN"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        profile_tabel.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        profile_tabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                profile_tabelMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(profile_tabel);
+
+        profile_date.setDateFormatString("MM/dd/yyyy");
+
+        profile_cari.setText("CARI");
+        profile_cari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                profile_cariActionPerformed(evt);
+            }
+        });
+
+        profile_batal.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        profile_batal.setText("BATALKAN TRANSAKSI");
+        profile_batal.setEnabled(false);
+        profile_batal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                profile_batalActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -256,15 +294,27 @@ public class Pelanggan extends javax.swing.JFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(profile_date, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(profile_cari, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(profile_batal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(profile_cari, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(profile_date, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(profile_batal)
+                .addContainerGap(8, Short.MAX_VALUE))
         );
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -302,28 +352,57 @@ public class Pelanggan extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jMenu1.setText("Master");
+        menu_1.setBackground(new java.awt.Color(204, 204, 0));
+        menu_1.setForeground(new java.awt.Color(0, 0, 0));
+        menu_1.setText("USERNAME");
+        menu_1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
 
-        jMenuItem4.setText("Profile");
-        jMenu1.add(jMenuItem4);
+        jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        jMenuItem4.setText("PROFILE");
+        menu_1.add(jMenuItem4);
 
-        jMenuBar1.add(jMenu1);
+        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        jMenuItem2.setText("TOPUP");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        menu_1.add(jMenuItem2);
 
-        jMenu2.setText("Data");
+        jMenuBar1.add(menu_1);
 
-        jMenuItem1.setText("Data Pesan");
+        jMenu2.setText("DATA");
+
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        jMenuItem1.setText("PESANAN");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem1);
+
+        menu_reload.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ENTER, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menu_reload.setText("RELOAD DATA");
+        menu_reload.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_reloadActionPerformed(evt);
+            }
+        });
+        jMenu2.add(menu_reload);
 
         jMenuBar1.add(jMenu2);
 
-        jMenu5.setText("Tentang");
-
-        jMenuItem5.setText("Tentang Aplikasi");
-        jMenu5.add(jMenuItem5);
-
+        jMenu5.setText("TENTANG");
         jMenuBar1.add(jMenu5);
 
-        jMenu6.setText("Keluar");
+        jMenu6.setText("KELUAR");
+        jMenu6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu6MouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu6);
 
         setJMenuBar(jMenuBar1);
@@ -345,41 +424,89 @@ public class Pelanggan extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        new Topup_Saldo().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void profile_deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profile_deleteActionPerformed
+        // TODO add your handling code here:
+        new methodDB().deleteDataPelanggan(menu_1.getText().toLowerCase());
+        new Login().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_profile_deleteActionPerformed
+
+    private void profile_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profile_editActionPerformed
+        // TODO add your handling code here:
+        String[] value = {
+            String.valueOf(profile_pass.getPassword()).toLowerCase(),
+            profile_hp.getText(),
+            menu_1.getText().toLowerCase()
+        };
+        new methodDB().setDataUser(profile_tabel, value);
+        
+    }//GEN-LAST:event_profile_editActionPerformed
+
+    private void menu_reloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_reloadActionPerformed
+        try {
+            // TODO add your handling code here:
+            Date date = profile_date.getDate();
+            LocalDateTime datetime = new EpochTime().convertToLocalDateViaMilisecond(date);
+            Long start = EpochTime.getSelectDays("START", datetime);
+            Long end = EpochTime.getSelectDays("END", datetime);
+            
+            new methodDB().getDataTopup(profile_tabel, menu_1.getText().toLowerCase(), start, end);
+        } catch (ParseException ex) {
+            Logger.getLogger(Pelanggan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        new methodDB().getDataUser(menu_1.getText().toLowerCase(), profile_user, profile_pass, profile_hp, profile_saldo);
+    }//GEN-LAST:event_menu_reloadActionPerformed
+
+    private void profile_batalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profile_batalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_profile_batalActionPerformed
+
+    @SuppressWarnings("empty-statement")
+    private void profile_tabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profile_tabelMouseClicked
+        // TODO add your handling code here:
+        int selected_rows = profile_tabel.getSelectedRow();
+        if(String.valueOf(profile_tabel.getValueAt(selected_rows, 1)).equals("PROSES")){
+            profile_batal.setEnabled(true);
+        }else {
+            profile_batal.setEnabled(false);
+        }
+    }//GEN-LAST:event_profile_tabelMouseClicked
+
+    private void profile_cariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profile_cariActionPerformed
+        // TODO add your handling code here:
+        menu_reload.doClick();
+    }//GEN-LAST:event_profile_cariActionPerformed
+
+    private void jMenu6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu6MouseClicked
+        // TODO add your handling code here:
+        new Login().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jMenu6MouseClicked
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        new Data_Pesan().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Pelanggan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Pelanggan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Pelanggan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Pelanggan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            UIManager.setLookAndFeel( new FlatDarkLaf() );
+        } catch( UnsupportedLookAndFeelException ex ) {
+            System.err.println( "Failed to initialize LaF" );
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -390,39 +517,40 @@ public class Pelanggan extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JMenu menu_1;
+    private javax.swing.JMenuItem menu_reload;
+    private javax.swing.JButton profile_batal;
+    private javax.swing.JButton profile_cari;
+    private com.toedter.calendar.JDateChooser profile_date;
+    private javax.swing.JButton profile_delete;
+    private javax.swing.JButton profile_edit;
+    private javax.swing.JTextField profile_hp;
+    private javax.swing.JPasswordField profile_pass;
+    private javax.swing.JLabel profile_saldo;
+    private javax.swing.JTable profile_tabel;
+    private javax.swing.JTextField profile_user;
     // End of variables declaration//GEN-END:variables
 }

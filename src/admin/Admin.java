@@ -3,13 +3,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package admin;
+import com.formdev.flatlaf.FlatDarkLaf;
 import database.methodDB;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import main.Login;
 import module.EpochTime;
 
@@ -25,7 +28,7 @@ public class Admin extends javax.swing.JFrame {
     public Admin() throws ParseException {
         initComponents();
         profile_date.setDate(new Date());
-        new methodDB().getDataHistoryDays(profile_tabel, String.valueOf(EpochTime.convertDateEpoch(profile_date)));
+        profile_clear.doClick();
     }
     
     
@@ -151,19 +154,19 @@ public class Admin extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("id topup");
+        jLabel6.setText("ID Top Up");
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("username");
+        jLabel7.setText("Username");
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("nominal");
+        jLabel8.setText("Nominal");
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("jenis bayar");
+        jLabel10.setText("Jenis Bayar");
 
         profile_id.setEnabled(false);
 
@@ -207,11 +210,11 @@ public class Admin extends javax.swing.JFrame {
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setText("catatan");
+        jLabel12.setText("Catatan");
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("status");
+        jLabel9.setText("Status");
 
         profile_user.setEnabled(false);
 
@@ -474,9 +477,13 @@ public class Admin extends javax.swing.JFrame {
         
         profile_tolak.setEnabled(false);
         profile_terima.setEnabled(false);
-        
+  
         try {
-            new methodDB().getDataHistoryDays(profile_tabel, String.valueOf(EpochTime.convertDateEpoch(profile_date)));
+            Date date = profile_date.getDate();
+            LocalDateTime datetime = new EpochTime().convertToLocalDateViaMilisecond(date);
+            Long start = EpochTime.getSelectDays("START", datetime);
+            Long end = EpochTime.getSelectDays("END", datetime);
+            new methodDB().getDataHistoryDays(profile_tabel, start, end);
         } catch (ParseException ex) {
             Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -507,16 +514,13 @@ public class Admin extends javax.swing.JFrame {
     private void profile_terimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profile_terimaActionPerformed
         // TODO add your handling code here:
         new methodDB().UpdateTopup("terima", profile_id, profile_user);
+        new methodDB().updateSaldoWithAdmin(profile_user.getText().toLowerCase(), Integer.valueOf(profile_nominal.getText()));
         profile_clear.doClick();
     }//GEN-LAST:event_profile_terimaActionPerformed
 
     private void profile_searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profile_searchActionPerformed
         // TODO add your handling code here:
-        try {
-            new methodDB().getDataHistoryDays(profile_tabel, String.valueOf(EpochTime.convertDateEpoch(profile_date)));
-        } catch (ParseException e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
+        profile_clear.doClick();
     }//GEN-LAST:event_profile_searchActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -540,30 +544,11 @@ public class Admin extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            UIManager.setLookAndFeel( new FlatDarkLaf() );
+        } catch( UnsupportedLookAndFeelException ex ) {
+            System.err.println( "Failed to initialize LaF" );
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
