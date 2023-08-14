@@ -5,6 +5,7 @@
 package admin;
 import com.formdev.flatlaf.FlatDarkLaf;
 import database.methodDB;
+import java.io.IOException;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -72,6 +73,7 @@ public class Admin extends javax.swing.JFrame {
         profile_tabel = new javax.swing.JTable();
         profile_date = new com.toedter.calendar.JDateChooser();
         profile_search = new javax.swing.JButton();
+        topup_cetak = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
@@ -333,6 +335,13 @@ public class Admin extends javax.swing.JFrame {
             }
         });
 
+        topup_cetak.setText("CETAK LAPORAN");
+        topup_cetak.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                topup_cetakActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -344,7 +353,8 @@ public class Admin extends javax.swing.JFrame {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(profile_date, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
-                        .addComponent(profile_search, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(profile_search, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(topup_cetak, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -356,7 +366,9 @@ public class Admin extends javax.swing.JFrame {
                     .addComponent(profile_search))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(topup_cetak)
+                .addGap(12, 12, 12))
         );
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -539,6 +551,16 @@ public class Admin extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jMenu6MouseClicked
 
+    private void topup_cetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_topup_cetakActionPerformed
+        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            new methodDB().generatePDF(profile_tabel, "TOPUP SALDO");
+        } catch (IOException ex) {
+            Logger.getLogger(Data_Pelanggan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_topup_cetakActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -599,5 +621,6 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JButton profile_terima;
     private javax.swing.JButton profile_tolak;
     private javax.swing.JTextField profile_user;
+    private javax.swing.JButton topup_cetak;
     // End of variables declaration//GEN-END:variables
 }

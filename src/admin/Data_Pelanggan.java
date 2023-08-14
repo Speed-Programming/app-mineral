@@ -6,6 +6,7 @@ package admin;
 
 import com.formdev.flatlaf.FlatDarkLaf;
 import database.methodDB;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -284,6 +285,11 @@ public class Data_Pelanggan extends javax.swing.JFrame {
         user_cetak.setBackground(new java.awt.Color(0, 51, 102));
         user_cetak.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         user_cetak.setText("CETAK LAPORAN");
+        user_cetak.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                user_cetakActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -471,6 +477,15 @@ public class Data_Pelanggan extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jMenu6MouseClicked
 
+    private void user_cetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_user_cetakActionPerformed
+        try {
+            // TODO add your handling code here:
+            new methodDB().generatePDF(user_table, "DATA PELANGGAN");
+        } catch (IOException ex) {
+            Logger.getLogger(Data_Pelanggan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_user_cetakActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -483,10 +498,8 @@ public class Data_Pelanggan extends javax.swing.JFrame {
         }
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Data_Pelanggan().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Data_Pelanggan().setVisible(true);
         });
     }
 

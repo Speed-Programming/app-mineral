@@ -6,6 +6,7 @@ package admin;
 
 import com.formdev.flatlaf.FlatDarkLaf;
 import database.methodDB;
+import java.io.IOException;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -359,6 +360,11 @@ public class Data_Pemesanan extends javax.swing.JFrame {
         pesan_cetak.setBackground(new java.awt.Color(0, 51, 102));
         pesan_cetak.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         pesan_cetak.setText("CETAK LAPORAN");
+        pesan_cetak.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pesan_cetakActionPerformed(evt);
+            }
+        });
 
         pesan_tanggal.setDateFormatString("MM/dd/yyyy");
 
@@ -606,6 +612,16 @@ public class Data_Pemesanan extends javax.swing.JFrame {
         new methodDB().deleteDataPemesanan(pesan_tabel, Integer.valueOf(pesan_id.getText()), String.valueOf(pesan_user.getText()).toLowerCase());
         pesan_refresh.doClick();
     }//GEN-LAST:event_pesan_hapusActionPerformed
+
+    private void pesan_cetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesan_cetakActionPerformed
+        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            new methodDB().generatePDF(pesan_tabel, "PESANAN");
+        } catch (IOException ex) {
+            Logger.getLogger(Data_Pelanggan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_pesan_cetakActionPerformed
 
     /**
      * @param args the command line arguments

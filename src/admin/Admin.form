@@ -561,6 +561,7 @@
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="profile_search" min="-2" pref="90" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="topup_cetak" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -577,6 +578,8 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jScrollPane1" pref="0" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
+                      <Component id="topup_cetak" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -663,6 +666,14 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="profile_searchActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="topup_cetak">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="CETAK LAPORAN"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="topup_cetakActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
