@@ -554,7 +554,6 @@ public class Admin extends javax.swing.JFrame {
     private void topup_cetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_topup_cetakActionPerformed
         // TODO add your handling code here:
         try {
-            // TODO add your handling code here:
             new methodDB().generatePDF(profile_tabel, "TOPUP SALDO");
         } catch (IOException ex) {
             Logger.getLogger(Data_Pelanggan.class.getName()).log(Level.SEVERE, null, ex);

@@ -7,6 +7,12 @@
             <file>file:/C:/Users/User/OneDrive/Documents/NetBeansProjects/Air%20Minum/src/air/minum/Register.java</file>
             <file>file:/C:/Users/User/OneDrive/Documents/NetBeansProjects/Air%20Minum/src/air/minum/Admin.java</file>
         </group>
-        <group name="joki"/>
+        <group name="joki">
+            <file>file:/D:/Documents/NetBeansProjects/app-mineral/src/admin/Data_Pelanggan.java</file>
+            <file>file:/D:/Documents/NetBeansProjects/app-mineral/src/admin/Data_Pemesanan.java</file>
+            <file>file:/D:/Documents/NetBeansProjects/app-mineral/src/pelanggan/Pelanggan.java</file>
+            <file>file:/D:/Documents/NetBeansProjects/app-mineral/src/pelanggan/Topup_Saldo.java</file>
+            <file>file:/D:/Documents/NetBeansProjects/app-mineral/src/pelanggan/Data_Pesan.java</file>
+        </group>
     </open-files>
 </project-private>

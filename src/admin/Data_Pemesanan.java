@@ -616,7 +616,6 @@ public class Data_Pemesanan extends javax.swing.JFrame {
     private void pesan_cetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesan_cetakActionPerformed
         // TODO add your handling code here:
         try {
-            // TODO add your handling code here:
             new methodDB().generatePDF(pesan_tabel, "PESANAN");
         } catch (IOException ex) {
             Logger.getLogger(Data_Pelanggan.class.getName()).log(Level.SEVERE, null, ex);

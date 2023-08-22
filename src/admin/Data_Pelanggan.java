@@ -479,7 +479,6 @@ public class Data_Pelanggan extends javax.swing.JFrame {
 
     private void user_cetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_user_cetakActionPerformed
         try {
-            // TODO add your handling code here:
             new methodDB().generatePDF(user_table, "DATA PELANGGAN");
         } catch (IOException ex) {
             Logger.getLogger(Data_Pelanggan.class.getName()).log(Level.SEVERE, null, ex);
